@@ -1,0 +1,19 @@
+#This is a MIB tree
+
+--blubMIB(1.3.6.1.4.1.254023)
+  |
+  +--blubSize(1)
+  |
+  +--blueWatt(2)
+  |
+  +--blubTable(3)
+  |  |
+  |  +--blubEntry(1) [blubIndex]
+  |	    |
+  |		+-- --- Integer32 blubIndex(1)
+  |		+-- rwn Integer32 blubLight(2)
+  |     	+-- rwn Integer32 blubColor(3)
+  |
+  +--blubInf(4)
+  |
+  +--blubGroup(5)

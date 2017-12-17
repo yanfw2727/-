@@ -1,0 +1,107 @@
+LIGHT DEFINITIONS ::=BEGIN
+IMPORTS
+	MODULE-IDENTITY,
+	OBJECT-IDENTITY,
+	OBJECT-TYPE,
+	NOTIFICATION-TYPE,
+	Integer32,
+    enterprises
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+	OBJECT-GROUP
+		FROM SNMPv2-CONF;
+
+blubMIB MODULE-IDENTITY
+	LAST-UPDATED 	"201611140000Z"
+	ORGANIZATION 	"S0254023"
+	CONTACT-INFO 	"myemail@ncue.edu.tw"
+	DESCRIPTION  	"An normal blub control MIB"
+	REVISION     	"201611140000Z"
+    DESCRIPTION  	"NEW DESCRIPTION"
+::=	{ enterprises 254023}
+
+
+blubSize	OBJECT-TYPE
+	SYNTAX			Integer32
+	MAX-ACCESS		read-only
+	STATUS			current
+	DESCRIPTION		"The size of the blub."
+	::= { blubMIB 1}
+
+blubWatt	OBJECT-TYPE
+	SYNTAX			Integer32
+	MAX-ACCESS		read-only
+	STATUS			current
+	DESCRIPTION		"The cost of the blub."
+	::= { blubMIB 2}
+
+
+blubTable	OBJECT-TYPE
+	SYNTAX			SEQUENCE OF BlubEntry
+	MAX-ACCESS		not-accessible
+	STATUS			current
+	DESCRIPTION
+		"A table of blubState."
+	::= { blubMIB 3 }
+	
+blubEntry	OBJECT-TYPE
+	SYNTAX			BlubEntry
+	MAX-ACCESS		not-accessible
+	STATUS			current
+	DESCRIPTION
+		"A entry of blub table."
+	INDEX			{ blubIndex }
+	::= { blubTable 1 }
+	
+BlubEntry ::=
+	SEQUENCE {
+		blubIndex	Integer32,
+		blubLight	Integer32,
+		blubColor	Integer32
+		}
+	
+blubIndex	OBJECT-TYPE
+	SYNTAX			Integer32 (1..65535)
+	MAX-ACCESS		not-accessible
+	STATUS			current
+	DESCRIPTION
+		"The unique value of these blub."
+	::= { blubEntry 1 }
+
+blubLight	OBJECT-TYPE
+	SYNTAX			Integer32
+	MAX-ACCESS		read-write
+	STATUS			current
+	DESCRIPTION
+		"How bright this blub is. You can change it to what number you like."
+	::= { blubEntry 2 }
+
+blubColor	OBJECT-TYPE
+	SYNTAX			Integer32
+	MAX-ACCESS		read-write
+	STATUS			current
+	DESCRIPTION
+		"You can change the color."
+	::= { blubEntry 3 }
+	
+blubInf		NOTIFICATION-TYPE
+	STATUS			current
+	DESCRIPTION
+		"Every blubs here each have their Index, Light, Color, Size, Watt.
+		Some of them can be changed and some of them can't"
+	::= { blubMIB 4}
+	
+blubGroup	OBJECT-GROUP
+	OBJECTS	{
+		blubLight,
+		blubSize,
+		blubColor,
+		blubWatt
+	}
+	STATUS	current
+	DESCRIPTION
+		"A collection of objects providing blub informations"
+	::= {blubMIB 5}
+
+END

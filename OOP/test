@@ -1,0 +1,51 @@
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <cstring>
+using namespace std;
+
+
+int main(int argc, char *argv[])
+{
+char ZhNumStr[17][] = {
+    "¹s", "³ü", "¶L", "°Ñ", "¸v", "¥î", "³°", "¬m", "®Ã", "¨h",
+    "¬B", "¨Õ", "¥a", "¸U", "»õ", "¥ü", "­t" };
+
+
+long ZhNumVal[17][] = {
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    1, 2, 3, 4, 8, 12, -1
+};
+
+
+  char input[100],input2[100][2];
+  int temp[4],add=0,total=0,tran[100],time=0;
+  cout << "¿é¤J:" << endl; 
+  cin >> input;
+  inline int findZhIndex( char *input, int index ) {
+    for( int i = 0; i < 17; ++i ) {
+        if( strncmp( &input[index], ZhNumStr[i], 2 ) == 0 )
+            return i;
+    }
+    return -1;
+}
+  if( i <= 10 ) val = ZhNumVal[i];
+    else val = pow(10, ZhNumVal[i]);
+  for(int i=0;i<50;i++){
+        if(tran[i]>10&&tran[i]<9000){
+            add=add+tran[i-1]*tran[i];
+            }
+        if(tran[i]>1&&tran[i]<10){
+            add=add+tran[i];
+            } 
+        if(tran[i]>10000){
+            total=total+add*tran[i];
+            add=0;
+        }
+}
+  total=total+add;
+  cout << total;
+  cin.get();
+  cin.get();
+  return 0;
+}
